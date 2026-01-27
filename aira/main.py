@@ -1,32 +1,30 @@
+
 # from aira.core.llm_loader import AIraModel
+# from aira.chains.basic_chain import BasicChain
+
 
 # def main():
-#     model = AIraModel()
-#     prompt = """You are a helpful assistant.
-#             User: Explain attention mechanism in simple terms.
-#             Assistant:"""
-#     response = model.generate_text(prompt)
-#     print(f"Prompt: {prompt}")
-#     print(f"Response: {response}")
+#     llm = AIraModel().llm
+#     chain = BasicChain(llm)
+
+#     question = "Explain attention mechanism in simple terms."
+#     response = chain.run(question)
+
+#     print("User Question:", question)
+#     print("AIra Response:", response)
+
 
 # if __name__ == "__main__":
 #     main()
 
+from fastapi import FastAPI
+from aira.api.chat import router as chat_router
 
-from aira.core.llm_loader import AIraModel
-from aira.chains.basic_chain import BasicChain
-
-
-def main():
-    llm = AIraModel().llm
-    chain = BasicChain(llm)
-
-    question = "Explain attention mechanism in simple terms."
-    response = chain.run(question)
-
-    print("User Question:", question)
-    print("AIra Response:", response)
+app = FastAPI(
+    title="AIra",
+    description="Modular LLM Serving Framework",
+    version="0.2.0"
+)
 
 
-if __name__ == "__main__":
-    main()
+app.include_router(chat_router)

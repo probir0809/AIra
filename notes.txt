@@ -56,6 +56,27 @@ AIra/
 └── pyproject.toml
 
 
+
+- [x] Week 1: Core LLM Inference & Modular Architecture 
+- [ ] Week 2: FastAPI-based Serving Layer(main.py should not call the llm directly)
+   📌 What We Are NOT Doing in Week-2
+    ❌ Auth
+    ❌ RAG
+    ❌ Memory
+    ❌ Agents
+    ❌ MLflow
+    Version	Meaning
+    0.1.0	Core LLM inference (Week 1)
+    0.2.0	API serving layer (Week 2)
+- [ ] Week 3: RAG with Vector Stores + DVC 
+- [ ] Week 4: Agentic AI with Tools & Memory 
+- [ ] Week 5: LoRA Fine-Tuning + MLflow 
+- [ ] Week 6: QLoRA + Optimization 
+- [ ] Week 7: vLLM Deployment 
+- [ ] Week 8: Docker + CI/CD 
+- [ ] Week 9+: Cloud Deployment & Monitoring
+
+
 ##### STEP-1 ######
 
 * we use __init__.py file --> code in it run first as soon as the package is imported
@@ -98,3 +119,9 @@ our current position(sha id: d67d6a0-->we are getting proper output with <think>
     EOS-driven bounded generation
         ↓
     Clean, deterministic responses
+
+
+
+##### STEP-2 ######
+ 
+    *currently our model is CLI(commad line interface) only
