@@ -46,7 +46,9 @@ Chain Layer
   v
 LLM (HuggingFace / Transformers)
 ```
+
 ## 📁 Project Structure
+
 ```text
 aira/
 ├── main.py                  # FastAPI entrypoint
