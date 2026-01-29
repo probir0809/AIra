@@ -30,7 +30,7 @@ Clear separation of concerns
 API-first design
 
 ## 🧱 High-Level Architecture
-Client
+$$ Client
 |
 | HTTP (JSON)
 v
@@ -42,5 +42,5 @@ Chain Layer
 |
 Prompt Manager
 |
-LLM (HuggingFace / Transformers)
+LLM (HuggingFace / Transformers) $$
 
