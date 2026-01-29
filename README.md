@@ -26,4 +26,21 @@ Dependency Injection
 Configuration management
 
 Clear separation of concerns
+
 API-first design
+
+# 🧱 High-Level Architecture
+Client
+  |
+  |  HTTP (JSON)
+  v
+FastAPI
+  |
+  |-- /v1/chat
+  v
+Chain Layer
+  |
+Prompt Manager
+  |
+LLM (HuggingFace / Transformers)
+
