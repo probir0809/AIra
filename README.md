@@ -31,11 +31,8 @@ API-first design
 
 # 🧱 High-Level Architecture
 Client
-
   |
-
-  |  HTTP (JSON)
-  
+  |  HTTP (JSON)  
   v
 
 FastAPI
