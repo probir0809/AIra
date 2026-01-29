@@ -46,3 +46,17 @@ Chain Layer
   v
 LLM (HuggingFace / Transformers)
 ```
+## 📁 Project Structure
+```text
+aira/
+├── main.py                  # FastAPI entrypoint
+├── api/
+│   └── chat.py              # Chat API endpoint
+├── chains/
+│   └── basic_chain.py       # Core LLM inference chain
+├── core/
+│   ├── llm_loader.py        # Model loading & wrapping
+│   ├── prompt_manager.py   # Prompt abstraction
+│   ├── config.py            # Centralized configuration
+│   └── dependencies.py     # Dependency injection
+'''
