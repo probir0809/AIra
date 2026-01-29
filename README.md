@@ -30,17 +30,19 @@ Clear separation of concerns
 API-first design
 
 ## 🧱 High-Level Architecture
-$$ Client
-|
-| HTTP (JSON)
-v
+```text
+Client
+  |
+  | HTTP (JSON)
+  v
 FastAPI
-|
-|-- /v1/chat
-v
+  |
+  |-- /v1/chat
+  v
 Chain Layer
-|
-Prompt Manager
-|
-LLM (HuggingFace / Transformers) $$
-
+  |
+  |-- Prompt Manager
+  |
+  v
+LLM (HuggingFace / Transformers)
+```
