@@ -4,7 +4,7 @@ AIra is a production-oriented framework for building, serving, and extending LLM
 
 The project focuses on clean architecture, extensibility, and real-world engineering practices, rather than notebook-style experimentation.
 
-🎯 # Project Objectives
+🎯 $ Project Objectives $
 
 Build a scalable and modular LLM framework
 
