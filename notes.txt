@@ -1,61 +1,64 @@
 AIra/
 │
 ├── aira/
-│   ├── main.py              # FastAPI entry
+│   ├── main.py             
+|   ├── test_loader.py  
+|   ├── build_faiss.py
+│   │
+│   ├── agents/
+│   │   ├── base_agent.py
+│   │   ├── tool_agentpy
+│   │
 │   ├── api/
+│   │   ├── agent.py
 │   │   ├── chat.py
 │   │   ├── rag.py
-│   │   └── agent.py
+│   │   ├── health.py
+│   │   ├── documents.py
+│   │   └── rerank.py
 │   │
 │   ├── core/
 │   │   ├── llm_loader.py
-│   │   ├── prompt_manager.py
-│   │   └── callbacks.py
+│   │   ├── config.py
+│   │   ├── dependencies.py
+│   │   └── prompt_manager.py
 │   │
 │   ├── chains/
 │   │   ├── basic_chain.py
 │   │   └── rag_chain.py
 │   │
-│   ├── agents/
-│   │   ├── base_agent.py
-│   │   └── tool_agent.py
+│   ├── rag/
+│   │   ├── bm25_retriever.py
+│   │   ├── embeddings.py
+│   │   ├── hybrid_reriever.py
+│   │   ├── kb_metadata.py
+│   │   ├── loader.py
+│   │   ├── reranker.py
+│   │   ├── retriever.py
+│   │   ├── semantic_chunker.py
+│   │   ├── summarizer.py
+│   │   ├── vectorstore.py
+│   │   └── document_loader.py
 │   │
 │   ├── tools/
-│   │   ├── search.py
-│   │   └── calculator.py
-│   │
-│   └── memory/
-│       └── conversation.py
+│       ├── calculator.py
+│       ├── search.py
+│       └── rag_tool.py
 │
-├── training/
-│   ├── lora_finetune.py
-│   ├── qlora_finetune.py
-│   └── configs/
-│
-├── data/
-│   ├── raw/
-│   ├── processed/
-│   └── dvc.yaml
-│
-├── inference/
-│   ├── vllm_server.py
-│   └── client.py
-│
-├── mlflow/
-│
-├── docker/
-│   ├── Dockerfile
-│   └── docker-compose.yml
-│
-├── .github/
-│   └── workflows/
-│       └── ci.yml
-│
-├── README.md
-├── requirements.txt
-└── pyproject.toml
+└── data/
+│   ├──faiss/
+│   ├──kb_metadata.json
+│   ├──uploads_metadata.json
 
 
+=========================================================
+Layer	                Responsibility                  |
+------                 ----------------                 |
+LLM	                    Generate text                   |
+Chain	                How to answer                   |
+RAG	                    Retrieve + answer               |
+Agent	                Decide which chain to use       |
+=========================================================
 
 - [x] Week 1: Core LLM Inference & Modular Architecture 
 - [ ] Week 2: FastAPI-based Serving Layer(main.py should not call the llm directly)
@@ -68,7 +71,8 @@ AIra/
     Version	Meaning
     0.1.0	Core LLM inference (Week 1)
     0.2.0	API serving layer (Week 2)
-- [ ] Week 3: RAG with Vector Stores + DVC 
+- [ ] Week 3: RAG with Vector Stores + DVC
+        CrossEncoder reranking, bm25, hybrid search
 - [ ] Week 4: Agentic AI with Tools & Memory 
 - [ ] Week 5: LoRA Fine-Tuning + MLflow 
 - [ ] Week 6: QLoRA + Optimization 
@@ -141,3 +145,194 @@ our current position(sha id: d67d6a0-->we are getting proper output with <think>
         HyDE                                Week 5
         Parent Retrieval                    Week 3
         Self-Querying                       Week 6
+
+    *in rag we keep the model for emmbeding model to be small unlike the main llm model
+    🔜 Next step (choose one — ONE at a time) 
+    1️⃣ PDF ingestion pipeline (PyPDFLoader → chunk → FAISS) 
+    2️⃣ BM25 + Hybrid Search 
+    3️⃣ DVC setup for RAG datasets 
+    4️⃣ RAG evaluation hooks
+
+
+
+    ✅ Week 1 – Solidify Current RAG (NOW)
+
+Goal: Make sure RAG works correctly and is observable.
+
+Tasks
+
+Verify documents are actually retrieved (log chunk text + source)
+
+Replace deprecated .run() → .invoke()
+
+Add top_k configuration
+
+Log:
+
+Retrieved chunk count
+
+Chunk sources
+
+Response latency
+
+Handle empty retrieval case gracefully
+
+Clean prompt and context formatting
+
+📌 Done when:
+
+You can explain why a particular answer was generated
+
+✅ Week 2 – Improve Retrieval Quality
+
+Goal: Better answers without adding complexity.
+
+Tasks
+
+Add CrossEncoder re-ranking
+
+FAISS top 20 → rerank → top 5
+
+Compare answers before/after reranking
+
+Make reranking optional via env flag
+
+Add score logging
+
+📌 Done when:
+
+Fewer irrelevant chunks
+
+More focused answers
+
+✅ Week 3 – Query Understanding
+
+Goal: Handle vague or short questions better.
+
+Tasks
+
+Add lightweight query expansion
+
+Single expanded query only
+
+Toggle via config
+
+Log original vs expanded query
+
+📌 Done when:
+
+Short questions retrieve relevant context
+
+✅ Week 4 – Dataset & Index Versioning
+
+Goal: Make the pipeline reproducible.
+
+Tasks
+
+Track PDFs, chunks, FAISS index with DVC
+
+Version ingestion and index builds
+
+Add make ingest and make build_index
+
+Document dataset versions
+
+📌 Done when:
+
+You can rebuild the same index anytime
+
+✅ Week 5 – Simple Agent Routing
+
+Goal: Decide when to use RAG.
+
+Tasks
+
+Add a small router:
+
+factual → RAG
+
+conversational → LLM
+
+Two tools only:
+
+rag_search
+
+llm_answer
+
+Log routing decisions
+
+📌 Done when:
+
+Not every query blindly hits the vector DB
+
+✅ Week 6 – Multi-Query (Optional)
+
+Goal: Improve recall for ambiguous queries.
+
+Tasks
+
+Add multi-query retrieval (max 3 variants)
+
+Deduplicate results
+
+Agent decides when to use it
+
+📌 Skip if current results are good
+
+✅ Week 7 – Model Improvement
+
+Goal: Improve answer quality.
+
+Tasks
+
+Fine-tune LLM using LoRA
+
+Focus on:
+
+factual tone
+
+citation usage
+
+Track experiments with MLflow
+
+📌 No embedding fine-tuning yet
+
+✅ Week 8 – Optimization
+
+Goal: Reduce cost and latency.
+
+Tasks
+
+Quantize model (QLoRA)
+
+Cache embeddings and expanded queries
+
+Dynamic context trimming
+
+✅ Week 9 – Production Readiness
+
+Goal: Deployable system.
+
+Tasks
+
+vLLM serving
+
+Streaming responses
+
+Dockerize app
+
+Add health checks
+
+✅ Week 10 – Monitoring
+
+Goal: Observe and trust the system.
+
+Tasks
+
+Log retrieval confidence
+
+Alert on empty retrieval
+
+Add basic dashboards
+
+

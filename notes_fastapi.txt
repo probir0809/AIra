@@ -1,0 +1,18 @@
+we need Fastapi and a webserver(for python it is uvicorn)
+
+################################
+The Frontend (React/Vue) runs in the user's browser.
+    |
+When the user types a question, the Frontend sends an HTTP request to Uvicorn.
+    |
+Uvicorn passes that request to FastAPI.
+    |
+FastAPI runs your BasicChain, gets the answer, and sends it back through Uvicorn to the Frontend. 
+##################################
+
+
+when we deploy any web application, we deploy it any webserver. every webserver have there own IP addresses
+since we don't want to remember the IP address we have domain name that we need to buy like(github.com,
+www.youtube.com,etc.)
+since we dont want to buy a domain now we use our local IP address (localhost:8000 or localhost:3000 are IP addresses.)
+to deploy our web application

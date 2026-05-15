@@ -31,4 +31,22 @@ class PromptManager:
             input_variables=["question"],
             template=template
         )
+    @staticmethod
+    def get_rag_prompt():
+        return PromptTemplate(
+            input_variables=["context", "question"],
+            template=(
+                "<|system|>\n"
+                "You are an AI assistant. Answer the user's question using ONLY the provided context.\n"
+                "If the answer is not present in the context, say \"I don't know based on the provided documents.\".\n"
+                "<|im_end|>\n"
+                "<|user|>\n"
+                "Context:\n"
+                "{context}\n\n"
+                "Question:\n"
+                "{question}\n"
+                "<|im_end|>\n"
+                "<|assistant|>\n"
+            )
+        )
     # we will add more templetes later
