@@ -1,5 +1,3 @@
-# basic_chain.py
-
 from langchain.chains import LLMChain
 from aira.core.prompt_manager import PromptManager
 import re

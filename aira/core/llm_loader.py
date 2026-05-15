@@ -1,7 +1,7 @@
 from transformers import AutoModelForCausalLM, AutoTokenizer
 import torch
 from loguru import logger
-from langchain_community.llms import HuggingFacePipeline
+from langchain.llms import HuggingFacePipeline
 from transformers import pipeline
 from .config import MODEL_NAME, DEVICE, MAX_TOKENS, TEMPERATURE, TOP_P
 
@@ -37,7 +37,7 @@ class AIraModel:
             temperature=TEMPERATURE,
             top_p=TOP_P,
             do_sample=True,
-            repetition_penalty=1.5,
+            repetition_penalty=1.2,
             eos_token_id=self.tokenizer.eos_token_id,
             pad_token_id=self.tokenizer.pad_token_id,
         )

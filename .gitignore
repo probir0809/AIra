@@ -5,6 +5,3 @@ __pycache__/
 .env
 models/
 mlruns/
-notes.txt
-notes_fastapi.txt
-data/
