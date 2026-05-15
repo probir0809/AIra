@@ -1,3 +1,5 @@
+
+
 from fastapi import FastAPI
 from contextlib import asynccontextmanager
 from loguru import logger
@@ -28,9 +30,8 @@ app = FastAPI(
     lifespan=lifespan
 )
 
-app.include_router(chat_router)
-app.include_router(rag_router)
+
+
+app.include_router(chat_router, prefix="/api/v1")
 app.include_router(health_router)
-app.include_router(rerank_router)
-app.include_router(documents_router)
-app.include_router(agent_router)
+
